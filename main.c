@@ -69,14 +69,12 @@ void CambiarPagina(Nodo *actual,int inputdta,int inputPagina)
 	new=NULL;
 }
 */
-void AgregarNodo(Nodo *new,int inputdta,int inputpagina)
+void AgregarNodo(Nodo *new,int inputdta,int inputpagina)//Error al implementar recursion, cambiado por loop.
 {
 	new=data->inicial;
 	while(new->siguiente!=NULL){new=new->siguiente;}
 	new->siguiente=malloc(sizeof(Nodo));
-	new=new->siguiente;
-	new->pagina=inputpagina;
-	new->dta=inputdta;
+	new=new->siguiente;new->pagina=inputpagina;new->dta=inputdta;
 }
 void EliminarPrimerNodo(){data->inicial = data->inicial->siguiente;}
 /*void SacarX(int i)
