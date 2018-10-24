@@ -44,18 +44,8 @@ int GetRandom(int min,int max)
 	return random;
 	
 }
-int GetPagina(Nodo *actual,int auxdta)//No sé por que no funciona con recursividad, fué cambiado por loop
-{
-	while (actual!=NULL)
-	{
-		if (actual->dta==auxdta)
-		{
-			return actual->pagina;
-		}
-		actual=actual->siguiente;
-	}
-	return -1;
-}
+//Error para obtener paginas con recursividad, dump
+
 /*void Imprimir()
 {
 	Nodo* actual=data->inicial;
@@ -99,7 +89,7 @@ void EliminarPrimerNodo(){data->inicial = data->inicial->siguiente;}
 //------------------------------------------------------------------------------------------------//
 void page_fault_handler(struct page_table *pt, int page)
 {                          
-	int activar=1;counterP++;int auxC=0;	
+	int activar=0;counterP++;int auxC=0;	
 	for (int i=0;i<nframes;i++)
 	{
 	if(auxArray[i]!=-1)
@@ -108,7 +98,7 @@ void page_fault_handler(struct page_table *pt, int page)
 	diskR++;disk_read(disk,page,&physmem[i*PAGE_SIZE]);
 	page_table_set_entry(pt,page,i,PROT_READ|PROT_WRITE|PROT_EXEC);
 	Nodo *new=data->inicial;AgregarNodo(new,i,page);
-	auxC++;activar=0;auxArray[i]=-1;
+	auxC++;activar=1;auxArray[i]=-1;
 	break;
 	}
 	}
@@ -118,7 +108,7 @@ void page_fault_handler(struct page_table *pt, int page)
 
 
 //METhod codes//
-	if (activar==1)
+	if (activar==0)
 	{
 		if (!strcmp(argv3, "fifo"))
 		{
@@ -132,10 +122,19 @@ void page_fault_handler(struct page_table *pt, int page)
 		}
 		if (!strcmp(argv3, "custom"))//ciclico
 		{
-			auxdta2--;//con ++ me da los mismos resultados de fifo, por eso para variar lo realizare alreves
+			auxdta2--;
 			if(auxdta2==1){auxdta2=nframes-1;}
 			auxdta=auxdta2;
-			auxPag = GetPagina(data->inicial,auxdta);
+			Nodo *actual=data->inicial;
+			auxPag=-1;
+			while (actual!=NULL)
+			{
+				if (actual->dta==auxdta)
+				{
+					auxPag = actual->pagina;
+				}
+				actual=actual->siguiente;
+			}
 			diskW++;disk_write(disk,auxPag, &physmem[auxdta*PAGE_SIZE]);
 			diskR++;disk_read(disk, page, &physmem[auxdta*PAGE_SIZE]);
 			CambiarPagina(data->inicial,auxdta,page);
@@ -143,7 +142,16 @@ void page_fault_handler(struct page_table *pt, int page)
 		if (!strcmp(argv3, "random"))
 		{
 			auxdta =GetRandom(0,nframes);
-			auxPag = GetPagina(data->inicial,auxdta);
+			Nodo *actual=data->inicial;
+			auxPag=-1;
+			while (actual!=NULL)
+			{
+				if (actual->dta==auxdta)
+				{
+					auxPag = actual->pagina;
+				}
+				actual=actual->siguiente;
+			}
 			diskW++;disk_write(disk,auxPag, &physmem[auxdta*PAGE_SIZE]);
 			diskR++;disk_read(disk, page, &physmem[auxdta*PAGE_SIZE]);
 			CambiarPagina(data->inicial,auxdta,page);
