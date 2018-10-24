@@ -6,22 +6,35 @@ Emilio Vélez
 Problemas:
 
 21/10:
+
 Error por uso de malloc(solucionado)
+
 Problemas "out of bound" (solucionado)
+
 Random genera errores(solucionado)
 
 22/10:
+
 Loop infinito (solucionado)
+
 Método implementado no funciona (Eliminado)
+
 incoherencias en resultados (solucionado)
+
 segmentation fault(en revision)
+
 modificar input programa con flags (REVISAR)
 
 23/10:
+
 -Empezar todo denuevo
+
 -uninitialized in this function [-Wmaybe-uninitialized] (solucionado)
+
 -Error de uso de memoria en la funcion de añadir nodo (solucioando)
+
 -Error causado por uso de Do While en vez de While(solucionado)
+
 -Error causado por uso de recursividad en las funciones (solucionado)
 
 Informe:
