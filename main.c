@@ -99,7 +99,7 @@ void EliminarPrimerNodo(){data->inicial = data->inicial->siguiente;}
 //------------------------------------------------------------------------------------------------//
 void page_fault_handler(struct page_table *pt, int page)
 {                          
-	int activar=0;counterP++;int auxC=0;	
+	int activar=1;counterP++;int auxC=0;	
 	for (int i=0;i<nframes;i++)
 	{
 	if(auxArray[i]!=-1)
@@ -108,7 +108,7 @@ void page_fault_handler(struct page_table *pt, int page)
 	diskR++;disk_read(disk,page,&physmem[i*PAGE_SIZE]);
 	page_table_set_entry(pt,page,i,PROT_READ|PROT_WRITE|PROT_EXEC);
 	Nodo *new=data->inicial;AgregarNodo(new,i,page);
-	auxC++;activar=1;auxArray[i]=-1;
+	auxC++;activar=0;auxArray[i]=-1;
 	break;
 	}
 	}
@@ -118,7 +118,7 @@ void page_fault_handler(struct page_table *pt, int page)
 
 
 //METhod codes//
-	if (activar==0)
+	if (activar==1)
 	{
 		if (!strcmp(argv3, "fifo"))
 		{
