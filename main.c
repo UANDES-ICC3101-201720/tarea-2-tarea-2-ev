@@ -132,7 +132,7 @@ void page_fault_handler(struct page_table *pt, int page)
 		}
 		if (!strcmp(argv3, "custom"))//ciclico
 		{
-			auxdta2--;
+			auxdta2--;//con ++ me da los mismos resultados de fifo, por eso para variar lo realizare alreves
 			if(auxdta2==1){auxdta2=nframes-1;}
 			auxdta=auxdta2;
 			auxPag = GetPagina(data->inicial,auxdta);
